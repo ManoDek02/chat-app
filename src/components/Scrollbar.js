@@ -9,14 +9,24 @@ import { Box } from '@mui/material';
 const RootStyle = styled('div')(() => ({
   flexGrow: 1,
   height: '100%',
-  overflow: 'scroll',
+  overflow: 'auto',
+  scrollbarWidth: 'none',
+  '&::-webkit-scrollbar': {
+    display:'none'
+  },
 }));
 
 const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
   // maxHeight: '100%',
   '& .simplebar-scrollbar': {
+    overflow: 'auto',
+    scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+      display:'none'
+    },
     '&:before': {
-      backgroundColor: alpha(theme.palette.grey[600], 0.48),
+      backgroundColor: theme.palette.mode === "light" ? "#F8FAFF" : theme.palette.background.paper,
+
     },
     '&.simplebar-visible:before': {
       opacity: 1,
@@ -24,9 +34,11 @@ const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
   },
   '& .simplebar-track.simplebar-vertical': {
     width: 10,
+
   },
   '& .simplebar-track.simplebar-horizontal .simplebar-scrollbar': {
     height: 6,
+
   },
   '& .simplebar-mask': {
     zIndex: 'inherit',
@@ -58,7 +70,7 @@ export default function Scrollbar({ children, sx, ...other }) {
 
   return (
     <RootStyle>
-      <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
+      <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other} >
         {children}
       </SimpleBarStyle>
     </RootStyle>
